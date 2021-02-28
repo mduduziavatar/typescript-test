@@ -1,6 +1,6 @@
-import GreetIn from './greetClass';
-export default
+import GreetIn from './greetin';
 
+export {GreetInXhosa, GreetInZulu, GreetInEnglish};
 
 class GreetInXhosa implements GreetIn {
 
@@ -20,3 +20,5 @@ class GreetInEnglish implements GreetIn {
         return "Hello, " + name;
     }
 }
+
+// export * from "./greet";
