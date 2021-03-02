@@ -1,13 +1,5 @@
 import assert from 'assert';
-import greet from '../greet';
-// import GreetInXhosa from '../greetClass';
-// import GreetInEnglish from '../greetClass';
-// export * from "../greetClass"; // exports 'StringValidator' interface
-import { GreetInXhosa, GreetInEnglish } from "../greetClass";
-
-
-// import GreetInEnglish from '../greetClass';
-// import GreetInZulu from '../greetClass';
+import { greet, GreetInXhosa, GreetInEnglish, GreetInZulu } from "../greet";
 
 describe('My first typescript basic test', function () {
 
@@ -22,9 +14,15 @@ describe('My first typescript basic test', function () {
         const greetInXhosa = new GreetInXhosa();
         assert.equal("Molo, Mike", greetInXhosa.greet("Mike"));
     });
+
     it('should greet in English', function () {
         const greetInEnglish = new GreetInEnglish();
         assert.equal("Hello, Mike", greetInEnglish.greet("Mike"));
     });
     
+    it('should greet in Zulu', function () {
+        const greetInZulu = new GreetInZulu();
+        assert.equal("Sawubona, Mike", greetInZulu.greet("Mike"));
+    });
+
 });

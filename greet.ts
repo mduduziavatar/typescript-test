@@ -1,4 +1,4 @@
-import GreetIn from './greet-in';
+import GreetIn from './greetin';
 import Person from './person';
 
 export {greet, GreetInXhosa, GreetInZulu, GreetInEnglish};
