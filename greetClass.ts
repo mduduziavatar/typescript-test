@@ -1,24 +1,5 @@
-import GreetIn from './greetin';
-
-export {GreetInXhosa, GreetInZulu, GreetInEnglish};
-
-class GreetInXhosa implements GreetIn {
-
-    greet(name: string) {
-        return "Molo, " + name;
-    }
+interface UserGreetCounter {
+    countGreet(firstName: string) : void // returns nothing
+    greetCounter : number
+    userGreetCount(firstName: string) : number
 }
-
-class GreetInZulu implements GreetIn {
-    
-    greet(name: string) {
-        return "Sawubona, " + name;
-    }
-}
-class GreetInEnglish implements GreetIn {
-    greet(name: string) {
-        return "Hello, " + name;
-    }
-}
-
-// export * from "./greet";
