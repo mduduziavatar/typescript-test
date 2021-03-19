@@ -24,4 +24,19 @@ describe('My first typescript basic test', function () {
         const greetInZulu = new greet_1.GreetInZulu();
         assert_1.default.equal("Sawubona, Mike", greetInZulu.greet("Mike"));
     });
+    it('should count once', function () {
+        const mapUserGreetCounter = new greet_1.MapUserGreetCounter();
+        let name = "Siphiwe";
+        assert_1.default.equal(1, mapUserGreetCounter.userGreetCount(name));
+    });
+    it('should count two times', function () {
+        const mapUserGreetCounter = new greet_1.MapUserGreetCounter();
+        assert_1.default.deepEqual({ "Siphiwe": 1, "Siphiwez": 2 }, mapUserGreetCounter.userGreetCount);
+    });
+    // it("should return the object of all users greeted on local storage", function() {
+    //     var item = greetFactory();
+    //     item.greetUser("Siphiwe", "zulu");
+    //     item.greetUser("Kagiso", "english");
+    //     assert.deepEqual({ "Siphiwe": 0, "Kagiso": 0 }, item.getAllUsers());
+    // });
 });
