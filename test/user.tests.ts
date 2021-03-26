@@ -19,7 +19,7 @@ describe('My first typescript basic test', function () {
         const greetInEnglish = new GreetInEnglish();
         assert.equal("Hello, Mike", greetInEnglish.greet("Mike"));
     });
-    
+
     it('should greet in Zulu', function () {
         const greetInZulu = new GreetInZulu();
         assert.equal("Sawubona, Mike", greetInZulu.greet("Mike"));
@@ -34,7 +34,10 @@ describe('My first typescript basic test', function () {
     it('should count two times', function () {
         const mapUserGreetCounter = new MapUserGreetCounter();
 
-        assert.deepEqual({"Siphiwe":1, "Siphiwez":2}, mapUserGreetCounter.userGreetCount)
+        let name = "Siphiwe";
+        const greetInZulu = new GreetInZulu();
+       let zuluCount = greetInZulu.greet(name) 
+    assert.deepEqual({}, mapUserGreetCounter.userGreetCount(zuluCount))
     });
 
     // it("should return the object of all users greeted on local storage", function() {

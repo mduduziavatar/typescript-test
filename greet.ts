@@ -27,6 +27,22 @@ class GreetInEnglish implements GreetIn {
     }
 
 }
+export class Greeter {
+    // create a Map that has a languages enum as a key and a GreetIn interface instance as a value
+    private greetLanguages:Map<Language, GreetIn>
+
+    constructor(greetLanguages:Map<Language, GreetIn>){
+        this.greetLanguages = greetLanguages;
+    }
+    
+    greet(name: string, chosenLanguage:Language) {
+        let greetIn = this.greetLanguages.get(chosenLanguage);
+        if (greetIn) {
+            return greetIn.greet(name);
+        }
+        return "";
+    }
+  }
 
 class MapUserGreetCounter implements UserGreetCounter {
     private theMap = new Map<string, number>();
@@ -64,6 +80,7 @@ class MapUserGreetCounter implements UserGreetCounter {
         }
         return 0
     }
+    
 
 }
 // console.log(new MapUserGreetCounter().greetCounter = 5);
