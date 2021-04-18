@@ -1,11 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MapUserGreetCounter = exports.GreetInEnglish = exports.GreetInZulu = exports.GreetInXhosa = exports.greet = void 0;
-function greet(person) {
-    return `Hello, ${person.firstName} ${person.lastName} we can't contact you.`;
-}
-exports.greet = greet;
-;
+exports.Greeter = exports.MapUserGreetCounter = exports.GreetInEnglish = exports.GreetInZulu = exports.GreetInXhosa = void 0;
 class GreetInXhosa {
     greet(name) {
         return "Molo, " + name;
@@ -24,6 +19,36 @@ class GreetInEnglish {
     }
 }
 exports.GreetInEnglish = GreetInEnglish;
+var Language;
+(function (Language) {
+    Language["eng"] = "Hello";
+    Language["zul"] = "Sawubona";
+    Language["xhosa"] = "Molo";
+})(Language || (Language = {}));
+class Greeter {
+    constructor(greetLanguages) {
+        // create a Map that has a languages enum as a key and a GreetIn interface instance as a value
+        this.theGreetInMap = new Map();
+        this.theGreetInMap = greetLanguages;
+    }
+    set(Language, eng, , GreetInEnglish) { }
+}
+exports.Greeter = Greeter;
+();
+;
+theGreetInMap.set(Language.zul, new GreetInZulu());
+theGreetInMap.set(Language.xhosa, new GreetInXhosa());
+let greeter = new Greeter(theGreetInMap);
+function greet(name, chosenLanguage) {
+    let greetIn = new GreetInEnglish();
+    if (chosenLanguage === Language.zul) {
+        greetIn = new GreetInZulu();
+    }
+    if (chosenLanguage === Language.xhosa) {
+        greetIn = new GreetInXhosa();
+    }
+    return greetIn.greet(name);
+}
 class MapUserGreetCounter {
     constructor() {
         this.theMap = new Map();
@@ -45,7 +70,7 @@ class MapUserGreetCounter {
             }
         }
         else {
-            this.theMap.set(firstName, 1); // if the name is not there add the name to the map counter from 1
+            this.theMap.set(firstName, 1); // if the name is not there add the name to the map counter from 1           
         }
         let currentCounter = this.theMap.get(firstName);
         if (currentCounter) {

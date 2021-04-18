@@ -3,12 +3,13 @@ import { greet, GreetInXhosa, GreetInEnglish, GreetInZulu, MapUserGreetCounter }
 
 describe('My first typescript basic test', function () {
 
-    it('should test strings', function () {
-        assert.equal("Hello, Bob Crow we can't contact you.", greet({
-            firstName: "Bob",
-            lastName: "Crow"
-        }));
-    });
+    // it('should test strings', function () {
+    //     const greetInEnglish = new GreetInEnglish();
+    //     assert.equal("Hello, Bob Crow we can't contact you.", greetInEnglish.greet({
+    //         firstName: "Bob",
+    //         lastName: "Crow"
+    //     }));
+    // });
 
     it('should greet in Xhosa', function () {
         const greetInXhosa = new GreetInXhosa();
@@ -36,8 +37,8 @@ describe('My first typescript basic test', function () {
 
         let name = "Siphiwe";
         const greetInZulu = new GreetInZulu();
-       let zuluCount = greetInZulu.greet(name) 
-    assert.deepEqual({}, mapUserGreetCounter.userGreetCount(zuluCount))
+        let zuluCount = greetInZulu.greet(name)
+        assert.deepEqual({}, mapUserGreetCounter.userGreetCount(zuluCount))
     });
 
     // it("should return the object of all users greeted on local storage", function() {
@@ -46,5 +47,14 @@ describe('My first typescript basic test', function () {
     //     item.greetUser("Kagiso", "english");
     //     assert.deepEqual({ "Siphiwe": 0, "Kagiso": 0 }, item.getAllUsers());
     // });
+
+    it('should be able to in Zulu using the new Greeter class', function () {
+
+
+    });
+
+    // assert.equal("Goeie dag, Andre", greeter.greet("Andre", Language.afr));
+    // assert.equal("Good day, Andrew", greeter.greet("Andrew", Language.eng));
+    // assert.equal("", greeter.greet("Andrew", Language.fr));
 
 });
