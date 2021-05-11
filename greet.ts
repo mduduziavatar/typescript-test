@@ -1,7 +1,7 @@
 import GreetIn from './greetin';
 import Person from './person';
 import UserGreetCounter from './greetClass'
-export { GreetInXhosa, GreetInZulu, GreetInEnglish, MapUserGreetCounter, Greeter };
+export { GreetInXhosa, GreetInZulu, GreetInEnglish, MapUserGreetCounter, };
 
 
 class GreetInXhosa implements GreetIn {
@@ -22,40 +22,11 @@ class GreetInEnglish implements GreetIn {
     }
 }
 
-enum Language {
+export enum Language {
     eng = "Hello",
     zul = "Sawubona",
     xhosa = "Molo"
 }
-class Greeter {
-    // create a Map that has a languages enum as a key and a GreetIn interface instance as a value
-
-    theGreetInMap: Map<Language, GreetIn> = new Map();
-
-    constructor(greetLanguages: Map<Language, GreetIn>) {
-        this.theGreetInMap = greetLanguages;
-    }
-
-
-    theGreetInMap.set(Language.eng, new GreetInEnglish());
-theGreetInMap.set(Language.zul, new GreetInZulu());
-theGreetInMap.set(Language.xhosa, new GreetInXhosa());
-
-let greeter = new Greeter(theGreetInMap);
-
-function greet(name: string, chosenLanguage: Language) {
-    let greetIn: GreetIn = new GreetInEnglish();
-    if (chosenLanguage === Language.zul) {
-        greetIn = new GreetInZulu();
-    }
-    if (chosenLanguage === Language.xhosa) {
-        greetIn = new GreetInXhosa();
-    }
-
-    return greetIn.greet(name);
-}
-}
-
 
 class MapUserGreetCounter implements UserGreetCounter {
     private theMap = new Map<string, number>();
@@ -88,12 +59,49 @@ class MapUserGreetCounter implements UserGreetCounter {
         }
         return 0
     }
-    
+
 }
 
+export class Greeter {
+    // create a Map that has a languages enum as a key and a GreetIn interface instance as a value
+    private greetLanguages: Map<Language, GreetIn>
+    private userGreetCounter: UserGreetCounter;
 
+    constructor(greetLanguages: Map<Language, GreetIn>, userGreetCounter: UserGreetCounter) {
+        this.greetLanguages = greetLanguages;
+        this.userGreetCounter = userGreetCounter;
+    }
 
+    greet(name: string, chosenLanguage: Language) {
+        let greetIn = this.greetLanguages.get(chosenLanguage);
+        // keep track of how many users has been greeted
+        this.userGreetCounter.countGreet(name);
+        if (greetIn) {
+            return greetIn.greet(name);
+        }
+        return "";
+    }
+
+    // call the greetCounter on the userGreetCounter
+    public get greetCounter(): number {
+        return this.userGreetCounter.greetCounter;
+    }
+
+    // call the userGreetCount on the userGreetCounter
+    userGreetCount(firstName: string): number {
+        return this.userGreetCounter.userGreetCount(firstName);
+    }
+}
 // console.log(new MapUserGreetCounter().greetCounter = 5);
+let greetMap = new Map<Language, GreetIn>();
+greetMap.set(Language.xhosa, new GreetInXhosa());
+greetMap.set(Language.eng, new GreetInEnglish());
+greetMap.set(Language.zul, new GreetInZulu());
+// console.log(greetMap);
+
+const mapUserGreetCounter = new MapUserGreetCounter();
+const greeter = new Greeter(greetMap, mapUserGreetCounter);
+console.log(greeter);
 
 console.log(new MapUserGreetCounter().userGreetCount("mdu"));
 console.log(new MapUserGreetCounter().userGreetCount("Siphiwe"));
