@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Greeter = exports.MapUserGreetCounter = exports.GreetInEnglish = exports.GreetInZulu = exports.GreetInXhosa = void 0;
+exports.Greeter = exports.Language = exports.MapUserGreetCounter = exports.GreetInEnglish = exports.GreetInZulu = exports.GreetInXhosa = void 0;
 class GreetInXhosa {
     greet(name) {
         return "Molo, " + name;
@@ -24,31 +24,7 @@ var Language;
     Language["eng"] = "Hello";
     Language["zul"] = "Sawubona";
     Language["xhosa"] = "Molo";
-})(Language || (Language = {}));
-class Greeter {
-    constructor(greetLanguages) {
-        // create a Map that has a languages enum as a key and a GreetIn interface instance as a value
-        this.theGreetInMap = new Map();
-        this.theGreetInMap = greetLanguages;
-    }
-    set(Language, eng, , GreetInEnglish) { }
-}
-exports.Greeter = Greeter;
-();
-;
-theGreetInMap.set(Language.zul, new GreetInZulu());
-theGreetInMap.set(Language.xhosa, new GreetInXhosa());
-let greeter = new Greeter(theGreetInMap);
-function greet(name, chosenLanguage) {
-    let greetIn = new GreetInEnglish();
-    if (chosenLanguage === Language.zul) {
-        greetIn = new GreetInZulu();
-    }
-    if (chosenLanguage === Language.xhosa) {
-        greetIn = new GreetInXhosa();
-    }
-    return greetIn.greet(name);
-}
+})(Language = exports.Language || (exports.Language = {}));
 class MapUserGreetCounter {
     constructor() {
         this.theMap = new Map();
@@ -80,6 +56,38 @@ class MapUserGreetCounter {
     }
 }
 exports.MapUserGreetCounter = MapUserGreetCounter;
+class Greeter {
+    constructor(greetLanguages, userGreetCounter) {
+        this.greetLanguages = greetLanguages;
+        this.userGreetCounter = userGreetCounter;
+    }
+    greet(name, chosenLanguage) {
+        let greetIn = this.greetLanguages.get(chosenLanguage);
+        // keep track of how many users has been greeted
+        this.userGreetCounter.countGreet(name);
+        if (greetIn) {
+            return greetIn.greet(name);
+        }
+        return "";
+    }
+    // call the greetCounter on the userGreetCounter
+    get greetCounter() {
+        return this.userGreetCounter.greetCounter;
+    }
+    // call the userGreetCount on the userGreetCounter
+    userGreetCount(firstName) {
+        return this.userGreetCounter.userGreetCount(firstName);
+    }
+}
+exports.Greeter = Greeter;
 // console.log(new MapUserGreetCounter().greetCounter = 5);
+let greetMap = new Map();
+greetMap.set(Language.xhosa, new GreetInXhosa());
+greetMap.set(Language.eng, new GreetInEnglish());
+greetMap.set(Language.zul, new GreetInZulu());
+// console.log(greetMap);
+const mapUserGreetCounter = new MapUserGreetCounter();
+const greeter = new Greeter(greetMap, mapUserGreetCounter);
+console.log(greeter);
 console.log(new MapUserGreetCounter().userGreetCount("mdu"));
 console.log(new MapUserGreetCounter().userGreetCount("Siphiwe"));
