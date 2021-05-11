@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { greet, GreetInXhosa, GreetInEnglish, GreetInZulu, MapUserGreetCounter } from "../greet";
+import { GreetInXhosa, GreetInEnglish, GreetInZulu, MapUserGreetCounter, Greeter, Language } from "../greet";
 
 describe('My first typescript basic test', function () {
 
@@ -26,27 +26,18 @@ describe('My first typescript basic test', function () {
         assert.equal("Sawubona, Mike", greetInZulu.greet("Mike"));
     });
 
-    it('should count once', function () {
+    it('should count', function () {
         const mapUserGreetCounter = new MapUserGreetCounter();
         let name = "Siphiwe"
         assert.equal(1, mapUserGreetCounter.userGreetCount(name));
     });
 
-    it('should count two times', function () {
-        const mapUserGreetCounter = new MapUserGreetCounter();
 
-        let name = "Siphiwe";
-        const greetInZulu = new GreetInZulu();
-        let zuluCount = greetInZulu.greet(name)
-        assert.deepEqual({}, mapUserGreetCounter.userGreetCount(zuluCount))
+    it("should return the object of all users greeted on local storage", function () {
+        let greetMap = new Greeter(Language, new GreetInXhosa());
+        // greetMap.set(Language.xhosa, new GreetInXhosa());
+      assert.equal("Molo, Andre", greetMap.greet("Andre", Language.xhosa));
     });
-
-    // it("should return the object of all users greeted on local storage", function() {
-    //     var item = greetFactory();
-    //     item.greetUser("Siphiwe", "zulu");
-    //     item.greetUser("Kagiso", "english");
-    //     assert.deepEqual({ "Siphiwe": 0, "Kagiso": 0 }, item.getAllUsers());
-    // });
 
     it('should be able to in Zulu using the new Greeter class', function () {
 
